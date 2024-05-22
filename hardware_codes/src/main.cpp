@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "WiFiManager.h"
 #include "StepperController.h"
+#include "WebServer.h"
 
 // WiFi configuration
 const char* ssid = "test";
@@ -16,13 +17,17 @@ WiFiManager wifiManager(ssid, password, local_IP, gateway, subnet);
 GStepper2<STEPPER4WIRE> stepper(2038, 5, 4, 0, 2);
 StepperController stepperController(stepper);
 
+// Create WebServer instance
+WebServer webServer(stepperController);
+
 void setup() {
   Serial.begin(115200);
 
   // Setup WiFi
   wifiManager.setupWiFi();
 
-  // Setup Stepper (initial setup already done in the constructor of StepperController)
+  // Setup Web Server
+  webServer.setupServer();
 }
 
 void loop() {
