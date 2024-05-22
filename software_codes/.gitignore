@@ -4,6 +4,10 @@ __pycache__/
 *.pyo
 *.pyd
 
+# Ignore Django migration files
+*.py[cod]
+*/migrations/*
+
 # Ignore Python-specific files
 .Python
 
@@ -12,3 +16,6 @@ __pycache__/
 .idea/
 .vscode/
 *.swp
+
+# Ignore other common files and directories
+*.sqlite3
