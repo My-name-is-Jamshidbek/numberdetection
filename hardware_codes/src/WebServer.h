@@ -6,19 +6,23 @@
 #include "IStepperController.h"
 #include "IWebServer.h"
 
+// WebServer class implementing IWebServer
 class WebServer : public IWebServer {
 private:
-    AsyncWebServer server;
-    IStepperController& stepperController;
+    AsyncWebServer server;                  // Async web server object
+    IStepperController& stepperController;  // Reference to the stepper controller
 
+    // Handler for not found (404) requests
     void notFound(AsyncWebServerRequest* request) {
         request->send(404, "text/plain", "Not found");
     }
 
 public:
+    // Constructor to initialize WebServer with a stepper controller
     WebServer(IStepperController& stepperController)
         : server(80), stepperController(stepperController) {}
 
+    // Function to set up the web server
     void setupServer() override {
         server.on("/", HTTP_GET, [](AsyncWebServerRequest* request) {
             request->send(200, "text/plain", "Hello, world");
